@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "libspu/mpc/securenn/boolean.h"
-
 #include <functional>
 
 #include "libspu/core/bit_utils.h"
@@ -22,6 +20,7 @@
 #include "libspu/mpc/common/prg_state.h"
 #include "libspu/mpc/common/pv2k.h"
 #include "libspu/mpc/kernel.h"
+#include "libspu/mpc/securenn/boolean.h"
 #include "libspu/mpc/securenn/state.h"
 #include "libspu/mpc/securenn/type.h"
 #include "libspu/mpc/utils/ring_ops.h"
@@ -74,8 +73,8 @@ void CommonTypeB::evaluate(KernelEvalContext* ctx) const {
   const Type& lhs = ctx->getParam<Type>(0);
   const Type& rhs = ctx->getParam<Type>(1);
 
-  SPU_ENFORCE(lhs == rhs, "securenn always use same bshare type, lhs={}, rhs={}",
-              lhs, rhs);
+  SPU_ENFORCE(lhs == rhs,
+              "securenn always use same bshare type, lhs={}, rhs={}", lhs, rhs);
 
   ctx->setOutput(lhs);
 }
@@ -83,8 +82,8 @@ void CommonTypeB::evaluate(KernelEvalContext* ctx) const {
 ArrayRef CastTypeB::proc(KernelEvalContext* ctx, const ArrayRef& in,
                          const Type& to_type) const {
   SPU_ENFORCE(in.eltype() == to_type,
-              "securenn always use same bshare type, lhs={}, rhs={}", in.eltype(),
-              to_type);
+              "securenn always use same bshare type, lhs={}, rhs={}",
+              in.eltype(), to_type);
   return in;
 }
 

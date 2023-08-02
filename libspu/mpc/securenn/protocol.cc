@@ -12,20 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "libspu/mpc/securenn/protocol.h"
-
 #include "libspu/mpc/common/prg_state.h"
 #include "libspu/mpc/common/pv2k.h"
 #include "libspu/mpc/securenn/arithmetic.h"
 #include "libspu/mpc/securenn/boolean.h"
 #include "libspu/mpc/securenn/conversion.h"
+#include "libspu/mpc/securenn/protocol.h"
 #include "libspu/mpc/securenn/state.h"
 #include "libspu/mpc/securenn/type.h"
 
 namespace spu::mpc {
 
 void regSecurennProtocol(SPUContext* ctx,
-                       const std::shared_ptr<yacl::link::Context>& lctx) {
+                         const std::shared_ptr<yacl::link::Context>& lctx) {
   securenn::registerTypes();
 
   // add communicator

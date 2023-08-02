@@ -13,7 +13,6 @@
 // limitations under the License.
 
 #include "libspu/mpc/io_test.h"
-
 #include "libspu/mpc/securenn/io.h"
 
 namespace spu::mpc::securenn {
@@ -21,7 +20,7 @@ namespace spu::mpc::securenn {
 INSTANTIATE_TEST_SUITE_P(
     SecurennIoTest, IoTest,
     testing::Combine(testing::Values(makeSecurennIo),  //
-                     testing::Values(3),       //
+                     testing::Values(3),               //
                      testing::Values(FieldType::FM32, FieldType::FM64,
                                      FieldType::FM128)),
     [](const testing::TestParamInfo<IoTest::ParamType>& p) {

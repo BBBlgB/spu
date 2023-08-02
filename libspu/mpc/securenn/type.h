@@ -24,9 +24,7 @@ class AShrTy : public TypeImpl<AShrTy, RingTy, Secret, AShare> {
  public:
   using Base::Base;
   static std::string_view getStaticId() { return "securenn.AShr"; }
-  explicit AShrTy(FieldType field) {
-    field_ = field;
-  }
+  explicit AShrTy(FieldType field) { field_ = field; }
 };
 
 class BShrTy : public TypeImpl<BShrTy, RingTy, Secret, BShare> {

@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "libspu/mpc/factory.h"
-
 #include <memory>
 
 #include "libspu/core/prelude.h"
@@ -21,11 +19,12 @@
 #include "libspu/mpc/aby3/protocol.h"
 #include "libspu/mpc/cheetah/io.h"
 #include "libspu/mpc/cheetah/protocol.h"
+#include "libspu/mpc/factory.h"
 #include "libspu/mpc/ref2k/ref2k.h"
-#include "libspu/mpc/semi2k/io.h"
-#include "libspu/mpc/semi2k/protocol.h"
 #include "libspu/mpc/securenn/io.h"
 #include "libspu/mpc/securenn/protocol.h"
+#include "libspu/mpc/semi2k/io.h"
+#include "libspu/mpc/semi2k/protocol.h"
 
 namespace spu::mpc {
 
@@ -69,7 +68,7 @@ std::unique_ptr<IoInterface> Factory::CreateIO(const RuntimeConfig& conf,
     case ProtocolKind::CHEETAH: {
       return cheetah::makeCheetahIo(conf.field(), npc);
     }
-    case ProtocolKind::SECURENN:{
+    case ProtocolKind::SECURENN: {
       return securenn::makeSecurennIo(conf.field(), npc);
     }
     default: {

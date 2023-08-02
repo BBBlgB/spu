@@ -73,23 +73,23 @@ class B2A_Randbit : public UnaryKernel {
   ArrayRef proc(KernelEvalContext* ctx, const ArrayRef& x) const override;
 };
 
-
-class Msb_a2b : public UnaryKernel{
-  public:
+class Msb_a2b : public UnaryKernel {
+ public:
   static constexpr char kBindName[] = "msb_a2b";
   // static constexpr char kBindName[] = "msb_a2b_nosc";
 
   ce::CExpr latency() const override {
-     return ce::Const(5)        //msb_a2a
-           + (Log(ce::K()) + 1)  // adder-circuit;
-           * Log(ce::N());      // tree-reduce parties.; 
+    return ce::Const(5)           // msb_a2a
+           + (Log(ce::K()) + 1)   // adder-circuit;
+                 * Log(ce::N());  // tree-reduce parties.;
   }
   ce::CExpr comm() const override {
-    const auto log_p = 9; //in fact, now the element is ring2k_t rather than [0, p-1]
-    return (9 * ce::K() + 3 * ce::K() * log_p)  //msb_a2a
-           + (2 * Log(ce::K()) + 1)         // KS-adder-circuit
-           * 2 * ce::K() * (ce::N() - 1)  // And gate, for nPC
-           * (ce::N() - 1);                // (no-matter tree or ring) reduce
+    const auto log_p =
+        9;  // in fact, now the element is ring2k_t rather than [0, p-1]
+    return (9 * ce::K() + 3 * ce::K() * log_p)  // msb_a2a
+           + (2 * Log(ce::K()) + 1)             // KS-adder-circuit
+                 * 2 * ce::K() * (ce::N() - 1)  // And gate, for nPC
+                 * (ce::N() - 1);  // (no-matter tree or ring) reduce
   }
 
   ArrayRef proc(KernelEvalContext* ctx, const ArrayRef& in) const override;

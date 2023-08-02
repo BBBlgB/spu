@@ -12,16 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "libspu/mpc/securenn/io.h"
-
 #include "libspu/mpc/common/pv2k.h"
+#include "libspu/mpc/securenn/io.h"
 #include "libspu/mpc/securenn/type.h"
 #include "libspu/mpc/utils/ring_ops.h"
 
 namespace spu::mpc::securenn {
 
 std::vector<ArrayRef> SecurennIo::toShares(const ArrayRef& raw, Visibility vis,
-                                         int owner_rank) const {
+                                           int owner_rank) const {
   SPU_ENFORCE(raw.eltype().isa<RingTy>(), "expected RingTy, got {}",
               raw.eltype());
   const auto field = raw.eltype().as<Ring2k>()->field();

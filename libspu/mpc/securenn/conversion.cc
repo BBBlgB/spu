@@ -12,13 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "libspu/mpc/securenn/conversion.h"
-#include "libspu/mpc/securenn/arithmetic.h"
-
 #include "libspu/core/vectorize.h"
 #include "libspu/mpc/ab_api.h"
 #include "libspu/mpc/common/communicator.h"
 #include "libspu/mpc/common/prg_state.h"
+#include "libspu/mpc/securenn/arithmetic.h"
+#include "libspu/mpc/securenn/conversion.h"
 #include "libspu/mpc/securenn/state.h"
 #include "libspu/mpc/securenn/type.h"
 #include "libspu/mpc/utils/ring_ops.h"
@@ -84,11 +83,11 @@ ArrayRef B2A::proc(KernelEvalContext* ctx, const ArrayRef& x) const {
   if (comm->getRank() == 0) {
     ring_add_(r_a, x_plus_r);
   }
-  if(comm->getRank() == 2){
+  if (comm->getRank() == 2) {
     comm->sendAsync(0, r_a, "r_a");
     r_a = ring_zeros(field, x.numel());
   }
-  if(comm->getRank() == 0){
+  if (comm->getRank() == 0) {
     auto tmp = comm->recv(2, makeType<AShrTy>(field), "r_a");
     r_a = ring_add(r_a, tmp);
   }
@@ -145,18 +144,18 @@ ArrayRef B2A_Randbit::proc(KernelEvalContext* ctx, const ArrayRef& x) const {
     });
   });
 
-  if(comm->getRank() == 2){
+  if (comm->getRank() == 2) {
     comm->sendAsync(0, res, "res");
     res = ring_zeros(field, x.numel()).as(makeType<AShrTy>(field));
   }
-  if(comm->getRank() == 0){
+  if (comm->getRank() == 0) {
     auto tmp = comm->recv(2, makeType<AShrTy>(field), "res");
     res = ring_add(res, tmp);
   }
   return res;
 }
 
-ArrayRef Msb_a2b::proc(KernelEvalContext* ctx, const ArrayRef& in) const{
+ArrayRef Msb_a2b::proc(KernelEvalContext* ctx, const ArrayRef& in) const {
   SPU_TRACE_MPC_LEAF(ctx, in);
   // SC
   // auto in_ = ring_add(in, in);

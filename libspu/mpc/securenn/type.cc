@@ -12,11 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "libspu/mpc/securenn/type.h"
-
 #include <mutex>
 
 #include "libspu/mpc/common/pv2k.h"
+#include "libspu/mpc/securenn/type.h"
 
 namespace spu::mpc::securenn {
 

@@ -153,7 +153,7 @@ class MulAA : public BinaryKernel {
     return ce::Const(2);
   }
 
-  ce::CExpr comm() const override { return ce::K() * 5 ; }
+  ce::CExpr comm() const override { return ce::K() * 5; }
 
   ArrayRef proc(KernelEvalContext* ctx, const ArrayRef& lhs,
                 const ArrayRef& rhs) const override;
@@ -228,8 +228,9 @@ class MatMulAA : public MatmulKernel {
     return ce::K() * (2 * m * k + 2 * k * n + m * n);
   }
 
-  ArrayRef proc(KernelEvalContext* ctx, const ArrayRef& lhs, const ArrayRef& rhs,
-                size_t m, size_t n, size_t k) const override;
+  ArrayRef proc(KernelEvalContext* ctx, const ArrayRef& lhs,
+                const ArrayRef& rhs, size_t m, size_t n,
+                size_t k) const override;
 };
 
 class MatMulAA_simple : public MatmulKernel {
@@ -249,44 +250,46 @@ class MatMulAA_simple : public MatmulKernel {
     return ce::K() * 2 * (2 * m * k + 2 * k * n + m * n);
   }
 
-  ArrayRef proc(KernelEvalContext* ctx, const ArrayRef& lhs, const ArrayRef& rhs,
-                size_t m, size_t n, size_t k) const override;
+  ArrayRef proc(KernelEvalContext* ctx, const ArrayRef& lhs,
+                const ArrayRef& rhs, size_t m, size_t n,
+                size_t k) const override;
 };
 
-
-class Msb : public UnaryKernel{
-  public:
+class Msb : public UnaryKernel {
+ public:
   static constexpr char kBindName[] = "msb_a2a";
 
   ce::CExpr latency() const override { return ce::Const(5); }
   ce::CExpr comm() const override {
-    const auto log_p = 9; //in fact, now the element is ring2k_t rather than [0, p-1]
+    const auto log_p =
+        9;  // in fact, now the element is ring2k_t rather than [0, p-1]
     return (13 * ce::K() + 4 * ce::K() * log_p);
   }
 
   ArrayRef proc(KernelEvalContext* ctx, const ArrayRef& in) const override;
 };
 
-class Msb_opt : public UnaryKernel{
-  public:
+class Msb_opt : public UnaryKernel {
+ public:
   static constexpr char kBindName[] = "msb_opt_a2a";
 
   ce::CExpr latency() const override { return ce::Const(5); }
   ce::CExpr comm() const override {
-    const auto log_p = 9; //in fact, now the element is ring2k_t rather than [0, p-1]
+    const auto log_p =
+        9;  // in fact, now the element is ring2k_t rather than [0, p-1]
     return (9 * ce::K() + 3 * ce::K() * log_p);
   }
 
   ArrayRef proc(KernelEvalContext* ctx, const ArrayRef& in) const override;
 };
 
-class ShareConvert : public UnaryKernel{
-  public:
+class ShareConvert : public UnaryKernel {
+ public:
   static constexpr char kBindName[] = "sc";
   ce::CExpr latency() const override { return ce::Const(4); }
   ce::CExpr comm() const override {
     const auto log_p = 9;
-     return (6 * ce::K() + 4 * log_p * ce::K()); 
+    return (6 * ce::K() + 4 * log_p * ce::K());
   }
 
   ArrayRef proc(KernelEvalContext* ctx, const ArrayRef& in) const override;

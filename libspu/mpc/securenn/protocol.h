@@ -21,7 +21,7 @@
 namespace spu::mpc {
 
 void regSecurennProtocol(SPUContext* ctx,
-                       const std::shared_ptr<yacl::link::Context>& lctx);
+                         const std::shared_ptr<yacl::link::Context>& lctx);
 
 std::unique_ptr<SPUContext> makeSecurennProtocol(
     const RuntimeConfig& conf,

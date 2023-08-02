@@ -16,11 +16,12 @@
 
 #include <memory>
 
+#include "yacl/link/link.h"
+
 #include "libspu/mpc/common/communicator.h"
 #include "libspu/mpc/securenn/beaver/beaver_interface.h"
 #include "libspu/mpc/securenn/beaver/beaver_tfp.h"
 #include "libspu/mpc/securenn/beaver/beaver_ttp.h"
-#include "yacl/link/link.h"
 
 namespace spu::mpc {
 
@@ -34,7 +35,7 @@ class SecurennState : public State {
   static constexpr char kBindName[] = "SecurennState";
 
   explicit SecurennState(const RuntimeConfig& conf,
-                       const std::shared_ptr<yacl::link::Context>& lctx) {
+                         const std::shared_ptr<yacl::link::Context>& lctx) {
     if (conf.beaver_type() == RuntimeConfig_BeaverType_TrustedFirstParty) {
       beaver_ = std::make_unique<securenn::BeaverTfpUnsafe>(lctx);
     } else if (conf.beaver_type() ==

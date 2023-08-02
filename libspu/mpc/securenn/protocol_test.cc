@@ -12,13 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "libspu/mpc/securenn/protocol.h"
-
 #include <mutex>
 
 #include "libspu/mpc/ab_api_test.h"
 #include "libspu/mpc/api_test.h"
 #include "libspu/mpc/securenn/beaver/ttp_server/beaver_server.h"
+#include "libspu/mpc/securenn/protocol.h"
 
 namespace spu::mpc::test {
 namespace {
@@ -58,13 +57,14 @@ std::unique_ptr<SPUContext> makeTTPSecurennProtocol(
 
 INSTANTIATE_TEST_SUITE_P(
     Securenn, ApiTest,
-    testing::Combine(testing::Values(CreateObjectFn(makeSecurennProtocol, "tfp"),
+    testing::Combine(testing::Values(CreateObjectFn(makeSecurennProtocol,
+                                                    "tfp"),
                                      CreateObjectFn(makeTTPSecurennProtocol,
                                                     "ttp")),         //
                      testing::Values(makeConfig(FieldType::FM32),    //
                                      makeConfig(FieldType::FM64),    //
                                      makeConfig(FieldType::FM128)),  //
-                     testing::Values(3)),                      //
+                     testing::Values(3)),                            //
     [](const testing::TestParamInfo<ApiTest::ParamType>& p) {
       return fmt::format("{}x{}x{}", std::get<0>(p.param).name(),
                          std::get<1>(p.param).field(), std::get<2>(p.param));
@@ -72,13 +72,14 @@ INSTANTIATE_TEST_SUITE_P(
 
 INSTANTIATE_TEST_SUITE_P(
     Securenn, ArithmeticTest,
-    testing::Combine(testing::Values(CreateObjectFn(makeSecurennProtocol, "tfp"),
+    testing::Combine(testing::Values(CreateObjectFn(makeSecurennProtocol,
+                                                    "tfp"),
                                      CreateObjectFn(makeTTPSecurennProtocol,
                                                     "ttp")),         //
                      testing::Values(makeConfig(FieldType::FM32),    //
                                      makeConfig(FieldType::FM64),    //
                                      makeConfig(FieldType::FM128)),  //
-                     testing::Values(3)),                      //
+                     testing::Values(3)),                            //
     [](const testing::TestParamInfo<ArithmeticTest::ParamType>& p) {
       return fmt::format("{}x{}x{}", std::get<0>(p.param).name(),
                          std::get<1>(p.param).field(), std::get<2>(p.param));
@@ -87,13 +88,14 @@ INSTANTIATE_TEST_SUITE_P(
 
 INSTANTIATE_TEST_SUITE_P(
     Securenn, BooleanTest,
-    testing::Combine(testing::Values(CreateObjectFn(makeSecurennProtocol, "tfp"),
+    testing::Combine(testing::Values(CreateObjectFn(makeSecurennProtocol,
+                                                    "tfp"),
                                      CreateObjectFn(makeTTPSecurennProtocol,
                                                     "ttp")),         //
                      testing::Values(makeConfig(FieldType::FM32),    //
                                      makeConfig(FieldType::FM64),    //
                                      makeConfig(FieldType::FM128)),  //
-                     testing::Values(3)),                      //
+                     testing::Values(3)),                            //
     [](const testing::TestParamInfo<BooleanTest::ParamType>& p) {
       return fmt::format("{}x{}x{}", std::get<0>(p.param).name(),
                          std::get<1>(p.param).field(), std::get<2>(p.param));
@@ -102,13 +104,14 @@ INSTANTIATE_TEST_SUITE_P(
 
 INSTANTIATE_TEST_SUITE_P(
     Securenn, ConversionTest,
-    testing::Combine(testing::Values(CreateObjectFn(makeSecurennProtocol, "tfp"),
+    testing::Combine(testing::Values(CreateObjectFn(makeSecurennProtocol,
+                                                    "tfp"),
                                      CreateObjectFn(makeTTPSecurennProtocol,
                                                     "ttp")),         //
                      testing::Values(makeConfig(FieldType::FM32),    //
                                      makeConfig(FieldType::FM64),    //
                                      makeConfig(FieldType::FM128)),  //
-                     testing::Values(3)),                      //
+                     testing::Values(3)),                            //
     [](const testing::TestParamInfo<BooleanTest::ParamType>& p) {
       return fmt::format("{}x{}x{}", std::get<0>(p.param).name(),
                          std::get<1>(p.param).field(), std::get<2>(p.param));
